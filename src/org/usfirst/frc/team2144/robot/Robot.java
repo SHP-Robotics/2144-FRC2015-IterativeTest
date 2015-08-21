@@ -13,48 +13,53 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	
-	
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
-    public void robotInit() {
-    	
-    }
-    
-    /**
-     * This function is run once each time the robot enters autonomous mode
-     */
-    public void autonomousInit() {
-    	
-    }
 
-    /**
-     * This function is called periodically during autonomous
-     */
-    public void autonomousPeriodic() {
-    	
-    }
-    
-    /**
-     * This function is called once each time the robot enters tele-operated mode
-     */
-    public void teleopInit(){
-    }
+	RobotDrive brute;
+	Joystick left, right;
 
-    /**
-     * This function is called periodically during operator control
-     */
-    public void teleopPeriodic() {
-        
-    }
-    
-    /**
-     * This function is called periodically during test mode
-     */
-    public void testPeriodic() {
-    	LiveWindow.run();
-    }
-    
+	/**
+	 * This function is run when the robot is first started up and should be
+	 * used for any initialization code.
+	 */
+	public void robotInit() {
+		brute = new RobotDrive(0, 1, 2, 3);
+		left = new Joystick(0);
+		right = new Joystick(1);
+	}
+
+	/**
+	 * This function is run once each time the robot enters autonomous mode
+	 */
+	public void autonomousInit() {
+
+	}
+
+	/**
+	 * This function is called periodically during autonomous
+	 */
+	public void autonomousPeriodic() {
+
+	}
+
+	/**
+	 * This function is called once each time the robot enters tele-operated
+	 * mode
+	 */
+	public void teleopInit() {
+	}
+
+	/**
+	 * This function is called periodically during operator control
+	 */
+	public void teleopPeriodic() {
+		brute.arcadeDrive(left);
+	}
+
+	/**
+	 * This function is called periodically during test mode
+	 */
+	public void testPeriodic() {
+		LiveWindow.run();
+	}
+
 }
