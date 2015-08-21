@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2144.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -18,6 +19,8 @@ public class Robot extends IterativeRobot {
 	RobotDrive brute;
 	Joystick left, right;
 	Talon winch;
+	DigitalInput topleft, topright, bottomleft, bottomright;
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -27,7 +30,11 @@ public class Robot extends IterativeRobot {
 		left = new Joystick(0);
 		right = new Joystick(1);
 		winch = new Talon(5);
-		
+		topleft = new DigitalInput(0);
+		topright = new DigitalInput(2);
+		bottomleft = new DigitalInput(1);
+		bottomright = new DigitalInput(3);
+
 	}
 
 	/**
@@ -55,9 +62,23 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control
 	 */
 	public void teleopPeriodic() {
-		brute.arcadeDrive(left.getY()*-1, left.getX()*-1);
-		winch.set(right.getY());
+		brute.arcadeDrive(left.getY() * -1, left.getX() * -1);
+
+		if (!bottomleft.get() || !bottomright.get()) {
+			if (right.getY() < 0) {
+				winch.set(0);
+			} else {
+				winch.set(right.getY());
+			}
+		} else if (!topleft.get() || !topright.get()) {
+			if (right.getY() > 0) {
+				winch.set(0);
+			} else {
+				winch.set(right.getY());
+			}
+		}
 	}
+
 
 	/**
 	 * This function is called periodically during test mode
