@@ -29,7 +29,7 @@ public class Robot extends IterativeRobot {
 		brute = new RobotDrive(0, 1, 2, 3);
 		left = new Joystick(0);
 		right = new Joystick(1);
-		winch = new Talon(5);
+		winch = new Talon(4);
 		topleft = new DigitalInput(0);
 		topright = new DigitalInput(2);
 		bottomleft = new DigitalInput(1);
@@ -65,17 +65,19 @@ public class Robot extends IterativeRobot {
 		brute.arcadeDrive(left.getY() * -1, left.getX() * -1);
 
 		if (!bottomleft.get() || !bottomright.get()) {
-			if (right.getY() < 0) {
-				winch.set(0);
-			} else {
-				winch.set(right.getY());
-			}
-		} else if (!topleft.get() || !topright.get()) {
 			if (right.getY() > 0) {
 				winch.set(0);
 			} else {
 				winch.set(right.getY());
 			}
+		} else if (!topleft.get() || !topright.get()) {
+			if (right.getY() < 0) {
+				winch.set(0);
+			} else {
+				winch.set(right.getY());
+			}
+		} else {
+			winch.set(right.getY());
 		}
 	}
 
