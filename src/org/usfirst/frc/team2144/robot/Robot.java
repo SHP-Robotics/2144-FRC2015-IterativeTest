@@ -3,6 +3,7 @@ package org.usfirst.frc.team2144.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
@@ -16,7 +17,7 @@ public class Robot extends IterativeRobot {
 
 	RobotDrive brute;
 	Joystick left, right;
-
+	Talon winch;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -25,6 +26,8 @@ public class Robot extends IterativeRobot {
 		brute = new RobotDrive(0, 1, 2, 3);
 		left = new Joystick(0);
 		right = new Joystick(1);
+		winch = new Talon(5);
+		
 	}
 
 	/**
@@ -53,6 +56,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public void teleopPeriodic() {
 		brute.arcadeDrive(left.getY()*-1, left.getX()*-1);
+		winch.set(right.getY());
 	}
 
 	/**
