@@ -41,8 +41,6 @@ public class Robot extends IterativeRobot {
 		pneumatics = new Compressor();
 		out = new Solenoid(0);
 		in = new Solenoid(1);
-		
-		
 
 	}
 
@@ -71,7 +69,13 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control
 	 */
 	public void teleopPeriodic() {
-		brute.arcadeDrive(left.getY() * -1, left.getX() * -1);
+		if (left.getRawButton(4)) {
+			brute.mecanumDrive_Polar(0.3, 90, -1 * left.getX());
+		} else if (left.getRawButton(5)) {
+			brute.mecanumDrive_Polar(0.3, 270, -1 * left.getX());
+		} else {
+			brute.arcadeDrive(left.getY() * -1, left.getX() * -1);
+		}
 
 		if (!bottomleft.get() || !bottomright.get()) {
 			if (right.getY() > 0) {
@@ -88,17 +92,16 @@ public class Robot extends IterativeRobot {
 		} else {
 			winch.set(right.getY());
 		}
-		
-		if(right.getRawButton(4)) {
+
+		if (right.getRawButton(4)) {
 			out.set(false);
-			in.set(true);	
-		} else if(right.getRawButton(3)){
+			in.set(true);
+		} else if (right.getRawButton(3)) {
 			out.set(true);
 			in.set(false);
 		}
-	
-	}
 
+	}
 
 	/**
 	 * This function is called periodically during test mode
