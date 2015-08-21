@@ -52,7 +52,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control
 	 */
 	public void teleopPeriodic() {
-		brute.arcadeDrive(left);
+		brute.arcadeDrive(left.getY()*-1, left.getX()*-1);
 	}
 
 	/**
