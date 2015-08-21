@@ -63,6 +63,9 @@ public class Robot extends IterativeRobot {
 	 * mode
 	 */
 	public void teleopInit() {
+		
+		brute.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+		brute.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
 	}
 
 	/**
@@ -74,7 +77,7 @@ public class Robot extends IterativeRobot {
 		} else if (left.getRawButton(5)) {
 			brute.mecanumDrive_Polar(0.3, 270, -1 * left.getX());
 		} else {
-			brute.arcadeDrive(left.getY() * -1, left.getX() * -1);
+			brute.arcadeDrive(left.getX() * -1, left.getY() * -1);
 		}
 
 		if (!bottomleft.get() || !bottomright.get()) {
